@@ -1,10 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Deployment Action"
+description: "Creates a GitHub Deployment"
+author: "chrnorm"
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  # state:
+  #   description: 'Deployment status to set the action as'
+  #   default: 'pending'
+  token:
+    description: "Github repository token"
+  target-url:
+    description: "Target url location"
+  description:
+    description: "Descriptive message about the deployment"
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: "node12"
+  main: "lib/main.js"
