@@ -1,6 +1,8 @@
 name: "Deployment Action"
 description: "Creates a GitHub Deployment"
 author: "chrnorm"
+icon: arrow-up
+color: black
 inputs:
   intiial_status:
     description: "Initial status for the deployment"
