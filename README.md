@@ -4,12 +4,12 @@ A GitHub action to create [Deployments](https://developer.github.com/v3/repos/de
 
 ## Action inputs
 
-| name             | description                                                                                                                                                       |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `initial_status` | (Optional) Initial status for the deployment. Must be one of the [accepted strings](https://developer.github.com/v3/repos/deployments/#create-a-deployment-status |
-| `token`          | GitHub token                                                                                                                                                      |
-| `target_url`     | (Optional) The target URL. This should be the URL of the app once deployed                                                                                        |
-| `description`    | (Optional) A description to give the environment                                                                                                                  |
+| name             | description                                                                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `initial_status` | (Optional) Initial status for the deployment. Must be one of the [accepted strings](https://developer.github.com/v3/repos/deployments/#create-a-deployment-status) |
+| `token`          | GitHub token                                                                                                                                                       |
+| `target_url`     | (Optional) The target URL. This should be the URL of the app once deployed                                                                                         |
+| `description`    | (Optional) A description to give the environment                                                                                                                   |
 
 ## Action outputs
 
