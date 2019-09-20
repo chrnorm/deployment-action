@@ -5,12 +5,12 @@ branding:
   icon: arrow-up
   color: black
 inputs:
-  intiial_status:
+  initial_status:
     description: "Initial status for the deployment"
     default: "pending"
   token:
     description: "Github repository token"
-  target-url:
+  target_url:
     description: "Target url location"
   description:
     description: "Descriptive message about the deployment"
