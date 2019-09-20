@@ -2,15 +2,21 @@ name: "Deployment Action"
 description: "Creates a GitHub Deployment"
 author: "chrnorm"
 inputs:
-  # state:
-  #   description: 'Deployment status to set the action as'
-  #   default: 'pending'
+  intiial_status:
+    description: "Initial status for the deployment"
+    default: "pending"
   token:
     description: "Github repository token"
   target-url:
     description: "Target url location"
   description:
     description: "Descriptive message about the deployment"
+  environment:
+    description: "The name of the environment for the deployment"
+    default: "production"
+outputs:
+  deployment_id:
+    description: "The ID of the created deployment"
 runs:
   using: "node12"
   main: "lib/main.js"
