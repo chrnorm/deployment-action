@@ -24,6 +24,11 @@ async function run() {
       (core.getInput("initial_status", {
         required: false
       }) as DeploymentState) || "pending";
+    const autoMergeStringInput = core.getInput("auto_merge", {
+      required: false
+    });
+
+    const auto_merge: boolean = autoMergeStringInput === "true";
 
     const client = new github.GitHub(token);
 
@@ -34,6 +39,7 @@ async function run() {
       required_contexts: [],
       environment,
       transient_environment: true,
+      auto_merge,
       description
     });
 
