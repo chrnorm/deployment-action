@@ -30,7 +30,7 @@ async function run() {
 
     const auto_merge: boolean = autoMergeStringInput === "true";
 
-    const client = new github.GitHub(token);
+    const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
 
     const deployment = await client.repos.createDeployment({
       owner: context.repo.owner,
