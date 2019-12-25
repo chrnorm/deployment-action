@@ -17,6 +17,11 @@ inputs:
   environment:
     description: "The name of the environment for the deployment"
     default: "production"
+  transient_environment:
+    description: "Specifies if the environment is specific to the deployment and will no longer exist in future"
+    default: false
+  environment_url:
+    description: "URL for accessing the environment"
 outputs:
   deployment_id:
     description: "The ID of the created deployment"

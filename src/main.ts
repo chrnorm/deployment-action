@@ -19,6 +19,8 @@ async function run() {
     const url = core.getInput("target_url", { required: false }) || defaultUrl;
     const environment =
       core.getInput("environment", { required: false }) || "production";
+    const transientEnvironmentString = core.getInput("transient_environment", { required: false });
+    const environmentUrl = core.getInput("environment_url", { required: false });
     const description = core.getInput("description", { required: false });
     const initialStatus =
       (core.getInput("initial_status", {
@@ -28,6 +30,7 @@ async function run() {
       required: false
     });
 
+    const transient_environment: boolean = transientEnvironmentString === "true";
     const auto_merge: boolean = autoMergeStringInput === "true";
 
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
@@ -38,7 +41,7 @@ async function run() {
       ref: context.ref,
       required_contexts: [],
       environment,
-      transient_environment: true,
+      transient_environment,
       auto_merge,
       description
     });
@@ -48,7 +51,8 @@ async function run() {
       deployment_id: deployment.data.id,
       state: initialStatus,
       log_url: defaultUrl,
-      target_url: url
+      target_url: url,
+      environment_url: environmentUrl
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
