@@ -1,20 +1,25 @@
 name: "Deployment Action"
 description: "Creates a GitHub Deployment"
-author: "chrnorm"
+author: "weirdan"
 branding:
   icon: arrow-up
-  color: black
+  color: gray-dark
 inputs:
   initial_status:
+    required: false
     description: "Initial status for the deployment"
     default: "pending"
   token:
+    required: true
     description: "Github repository token"
   target_url:
+    required: false
     description: "Target url location"
   description:
+    required: false
     description: "Descriptive message about the deployment"
   environment:
+    required: false
     description: "The name of the environment for the deployment"
     default: "production"
 outputs:

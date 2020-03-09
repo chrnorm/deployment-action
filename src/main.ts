@@ -30,15 +30,17 @@ async function run() {
 
     const auto_merge: boolean = autoMergeStringInput === "true";
 
+    const ref = core.getInput("ref", { required: false }) || context.ref;
+
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
 
     const deployment = await client.repos.createDeployment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      ref: context.ref,
+      ref,
       required_contexts: [],
       environment,
-      transient_environment: true,
+      transient_environment: false,
       auto_merge,
       description
     });
