@@ -39,7 +39,7 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target-url: http://my-app-url.com
+          target_url: http://my-app-url.com
           environment: production
         # more steps below where you run your deployment scripts inside the same action
 ```
@@ -71,7 +71,7 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target-url: http://my-app-url.com
+          target_url: http://my-app-url.com
           environment: production
 
       - name: Deploy my app
@@ -83,7 +83,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target-url: http://my-app-url.com
+          target_url: http://my-app-url.com
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
@@ -92,7 +92,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target-url: http://my-app-url.com
+          target_url: http://my-app-url.com
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 ```
