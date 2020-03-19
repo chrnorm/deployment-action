@@ -16,6 +16,7 @@ async function run() {
     const logUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
     const token = core.getInput("token", { required: true });
+    const ref = core.getInput("ref", { required: false }) || context.ref;
     const url = core.getInput("target_url", { required: false }) || logUrl;
     const environment =
       core.getInput("environment", { required: false }) || "production";
@@ -35,7 +36,7 @@ async function run() {
     const deployment = await client.repos.createDeployment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      ref: context.ref,
+      ref: ref,
       required_contexts: [],
       environment,
       transient_environment: true,
