@@ -22,4 +22,4 @@ outputs:
     description: "The ID of the created deployment"
 runs:
   using: "node12"
-  main: "lib/main.js"
+  main: "dist/main.js"

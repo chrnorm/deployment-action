@@ -13,10 +13,10 @@ type DeploymentState =
 async function run() {
   try {
     const context = github.context;
-    const defaultUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
+    const logUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
     const token = core.getInput("token", { required: true });
-    const url = core.getInput("target_url", { required: false }) || defaultUrl;
+    const url = core.getInput("target_url", { required: false }) || logUrl;
     const environment =
       core.getInput("environment", { required: false }) || "production";
     const description = core.getInput("description", { required: false });
@@ -47,8 +47,8 @@ async function run() {
       ...context.repo,
       deployment_id: deployment.data.id,
       state: initialStatus,
-      log_url: defaultUrl,
-      target_url: url
+      log_url: logUrl,
+      environment_url: url
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
