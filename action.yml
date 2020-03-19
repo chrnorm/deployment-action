@@ -8,6 +8,9 @@ inputs:
   initial_status:
     description: "Initial status for the deployment"
     default: "pending"
+  ref:
+    description: "The reference for the deployment"
+    required: false
   token:
     description: "Github repository token"
   target_url:
