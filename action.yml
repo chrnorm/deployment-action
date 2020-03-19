@@ -8,18 +8,23 @@ inputs:
   initial_status:
     description: "Initial status for the deployment"
     default: "pending"
+    required: false
   ref:
     description: "The reference for the deployment"
     required: false
   token:
     description: "Github repository token"
+    required: true
   target_url:
     description: "Target url location"
+    required: false
   description:
     description: "Descriptive message about the deployment"
+    required: false
   environment:
     description: "The name of the environment for the deployment"
     default: "production"
+    required: false
 outputs:
   deployment_id:
     description: "The ID of the created deployment"
