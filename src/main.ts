@@ -16,6 +16,8 @@ async function run() {
     const logUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
     const token = core.getInput("token", { required: true });
+    const octokit = github.getOctokit(token);
+
     const ref = core.getInput("ref", { required: false }) || context.ref;
     const url = core.getInput("target_url", { required: false }) || logUrl;
     const environment =
@@ -23,17 +25,15 @@ async function run() {
     const description = core.getInput("description", { required: false });
     const initialStatus =
       (core.getInput("initial_status", {
-        required: false
+        required: false,
       }) as DeploymentState) || "pending";
     const autoMergeStringInput = core.getInput("auto_merge", {
-      required: false
+      required: false,
     });
 
     const auto_merge: boolean = autoMergeStringInput === "true";
 
-    const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
-
-    const deployment = await client.repos.createDeployment({
+    const deployment = await octokit.repos.createDeployment({
       owner: context.repo.owner,
       repo: context.repo.repo,
       ref: ref,
@@ -41,15 +41,20 @@ async function run() {
       environment,
       transient_environment: true,
       auto_merge,
-      description
+      description,
     });
 
-    await client.repos.createDeploymentStatus({
+    if (!("id" in deployment.data)) {
+      // TODO: Should 202 be handled differently? Either way we get no ID
+      throw new Error(deployment.data.message);
+    }
+
+    await octokit.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: deployment.data.id,
       state: initialStatus,
       log_url: logUrl,
-      environment_url: url
+      environment_url: url,
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
