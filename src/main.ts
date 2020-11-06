@@ -88,6 +88,7 @@ async function run(): Promise<void> {
     await octokit.rest.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: deployment.data.id,
+      description,
       state: initialStatus,
       log_url: logUrl,
       environment_url: environmentUrl,
