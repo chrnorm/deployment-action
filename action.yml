@@ -3,7 +3,7 @@ description: "Creates a GitHub Deployment"
 author: "chrnorm"
 branding:
   icon: arrow-up
-  color: black
+  color: gray-dark
 inputs:
   initial_status:
     description: "Initial status for the deployment"
@@ -15,8 +15,14 @@ inputs:
   token:
     description: "Github repository token"
     required: true
+  log_url:
+    description: "Sets the URL for deployment output"
+    required: false
   target_url:
-    description: "Target url location"
+    description: "Same as log_url"
+    required: false
+  environment_url:
+    description: "Sets the URL for accessing your environment"
     required: false
   description:
     description: "Descriptive message about the deployment"
