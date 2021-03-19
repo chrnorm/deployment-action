@@ -17,6 +17,8 @@ async function run() {
 
     const token = core.getInput("token", { required: true });
     const ref = core.getInput("ref", { required: false }) || context.ref;
+    const repo = core.getInput("repo", { required: false }) || context.repo.repo;
+    const owner = core.getInput("owner", { required: false }) || context.repo.owner;
     const url = core.getInput("target_url", { required: false }) || logUrl;
     const environment =
       core.getInput("environment", { required: false }) || "production";
@@ -34,8 +36,8 @@ async function run() {
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
 
     const deployment = await client.repos.createDeployment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
+      owner: owner,
+      repo: repo,
       ref: ref,
       required_contexts: [],
       environment,
