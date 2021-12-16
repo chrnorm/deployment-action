@@ -21,6 +21,7 @@ async function run() {
     const environment =
       core.getInput("environment", { required: false }) || "production";
     const description = core.getInput("description", { required: false });
+    const payload = core.getInput("payload", { required: false });
     const initialStatus =
       (core.getInput("initial_status", {
         required: false
@@ -41,7 +42,8 @@ async function run() {
       environment,
       transient_environment: true,
       auto_merge,
-      description
+      description,
+      payload,
     });
 
     await client.repos.createDeploymentStatus({

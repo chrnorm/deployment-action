@@ -21,10 +21,14 @@ inputs:
   description:
     description: "Descriptive message about the deployment"
     required: false
+  payload:
+    description: "JSON payload with extra information about the deployment"
+    required: false
   environment:
     description: "The name of the environment for the deployment"
     default: "production"
     required: false
+    
 outputs:
   deployment_id:
     description: "The ID of the created deployment"
