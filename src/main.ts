@@ -53,6 +53,7 @@ async function run() {
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
+    core.setOutput("target_url", url);
   } catch (error) {
     core.error(error);
     core.setFailed(error.message);
