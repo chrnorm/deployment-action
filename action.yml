@@ -25,6 +25,10 @@ inputs:
     description: "The name of the environment for the deployment"
     default: "production"
     required: false
+  auto_inactive:
+    description: "Adds a new inactive status to all prior non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment. An inactive status is only added to deployments that had a success state. Default: true"
+    default: "true"
+    required: false
 outputs:
   deployment_id:
     description: "The ID of the created deployment"

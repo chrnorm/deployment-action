@@ -29,7 +29,12 @@ async function run() {
       required: false
     });
 
+    const autoInactiveStringInput = core.getInput("auto_inactive", {
+      required: false
+    });
+
     const auto_merge: boolean = autoMergeStringInput === "true";
+    const autoInactive: boolean = autoInactiveStringInput === "true";
 
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
 
@@ -49,7 +54,8 @@ async function run() {
       deployment_id: deployment.data.id,
       state: initialStatus,
       log_url: logUrl,
-      environment_url: url
+      environment_url: url,
+      auto_inactive: autoInactive,
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
