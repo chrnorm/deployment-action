@@ -51,7 +51,7 @@ function run() {
             const ref = core.getInput('ref', { required: false }) || context.ref;
             const sha = core.getInput('sha', { required: false }) || context.sha;
             const logUrl = core.getInput('log_url', { required: false }) || defaultLogUrl;
-            const environmentUrl = core.getInput('environment_url', { required: false }) || '';
+            const environmentUrl = core.getInput('environment_url', { required: false });
             const task = core.getInput('task', {
                 required: false
             });
@@ -80,7 +80,7 @@ function run() {
                 repo: context.repo.repo,
                 ref,
                 sha,
-                task,
+                task: task !== '' ? task : undefined,
                 required_contexts: requiredContexts ? requiredContexts.split(',') : [],
                 environment,
                 transient_environment: transientEnvironment === 'true',
