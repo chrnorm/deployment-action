@@ -72,10 +72,11 @@ jobs:
 
 ## Action outputs
 
-| name             | description                                            |
-| ---------------- | ------------------------------------------------------ |
-| `deployment_id`  | The ID of the deployment as returned by the GitHub API |
-| `deployment_url` | The URL of the created deployment                      |
+| name              | description                                                            |
+| ----------------- | ---------------------------------------------------------------------- |
+| `deployment_id`   | The ID of the deployment as returned by the GitHub API                 |
+| `deployment_url`  | The URL of the created deployment                                      |
+| `environment_url` | The environment URL of the deployment (the same as the input variable) |
 
 ## Notes
 
@@ -118,18 +119,18 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
-          state: 'success'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'success'
 
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
-          state: 'failure'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'failure'
 ```
 
 ## Breaking changes
