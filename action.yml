@@ -1,45 +1,46 @@
-name: "Deployment Action"
-description: "Creates a GitHub Deployment"
-author: "chrnorm"
+name: 'Deployment Action'
+description: 'Creates a GitHub Deployment'
+author: 'chrnorm'
 branding:
   icon: arrow-up
   color: gray-dark
 inputs:
   initial_status:
-    description: "Initial status for the deployment. Can be one of: error, failure, inactive, in_progress, queued, pending, success"
-    default: "pending"
+    description: 'Initial status for the deployment. Can be one of: error, failure, inactive, in_progress, queued, pending, success'
+    default: 'pending'
     required: false
   token:
-    description: "Github repository token"
+    description: 'Github repository token'
     required: true
   log_url:
-    description: "Log URL location"
+    description: 'Log URL location'
     required: false
   description:
-    description: "Descriptive message about the deployment"
+    description: 'Descriptive message about the deployment'
     required: false
   environment:
-    description: "The name of the environment for the deployment"
-    default: "production"
+    description: 'The name of the environment for the deployment'
+    default: 'production'
     required: false
   environment_url:
-    description: "A URL to access your deployment"
+    description: 'A URL to access your deployment'
     required: false
   auto_merge:
     description: Whether to attempt to auto-merge the default branch into the branch that the action is running on if set to "true". More details in the GitHub deployments API. Warning - setting this to "true" has caused this action to fail in some cases
     required: false
-    default: "false"
+    default: 'false'
   ref:
-    description: "The reference for the deployment"
+    description: 'The reference for the deployment'
     required: false
   sha:
-    description: "The commit SHA for the deployment"
+    description: 'The commit SHA for the deployment'
     required: false
   task:
     description: The name of the task for the deployment (e.g., deploy or deploy:migrations). More details in the GitHub deployments API.
     required: false
+    default: 'deploy'
   required_contexts:
-    description: "If provided, must be formatted as a comma-separated string. The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts."
+    description: 'If provided, must be formatted as a comma-separated string. The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.'
     required: false
   payload:
     description: JSON payload with extra information about the deployment. Can be provided as a JSON string.
@@ -47,15 +48,15 @@ inputs:
   transient_environment:
     description: Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future.
     required: false
-    default: "false"
+    default: 'false'
   production_environment:
-    description: "Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise."
+    description: 'Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise.'
     required: false
 
 outputs:
   deployment_id:
-    description: "The ID of the created deployment"
+    description: 'The ID of the created deployment'
 
 runs:
-  using: "node16"
-  main: "dist/index.js"
+  using: 'node16'
+  main: 'dist/index.js'
