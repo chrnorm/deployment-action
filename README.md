@@ -13,6 +13,7 @@ A GitHub action to create [Deployments](https://developer.github.com/v3/repos/de
 | `description`    | (Optional) A description to give the environment                                                                                                                                                                                                                                                                                                                                                              |
 | `auto_merge`     | (Optional - default is `false`) Whether to attempt to auto-merge the default branch into the branch that the action is running on if set to `"true"`. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1). Warning - setting this to `"true"` has caused this action to [fail in some cases](https://github.com/chrnorm/deployment-action/issues/1) |
 | `ref`            | (Optional) The ref to deploy. This can be a branch, tag, or SHA. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1). |
+| `sha`            | (Optional) The commit sha for this deployment. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1). |
 
 ## Action outputs
 

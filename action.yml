@@ -12,6 +12,9 @@ inputs:
   ref:
     description: "The reference for the deployment"
     required: false
+  sha:
+    description: "The commit sha for the deployment"
+    required: false
   token:
     description: "Github repository token"
     required: true
