@@ -10,26 +10,27 @@ A GitHub action to create [Deployments](https://developer.github.com/v3/repos/de
 
 | name                     | description                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `initial_status`         | (Optional) Initial status for the deployment. Must be one of the [accepted strings](https://developer.github.com/v3/repos/deployments/#create-a-deployment-status)                                                                                                                                                                                                                                            |
+| `initial-status`         | (Optional) Initial status for the deployment. Must be one of the [accepted strings](https://developer.github.com/v3/repos/deployments/#create-a-deployment-status)                                                                                                                                                                                                                                            |
 | `token`                  | GitHub token                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `log_url`                | (Optional) Sets the URL for deployment output                                                                                                                                                                                                                                                                                                                                                                 |
+| `log-url`                | (Optional) Sets the URL for deployment output                                                                                                                                                                                                                                                                                                                                                                 |
 | `description`            | (Optional) Descriptive message about the deployment                                                                                                                                                                                                                                                                                                                                                           |
 | `environment`            | (Optional - default is `production`) Name for the target deployment environment                                                                                                                                                                                                                                                                                                                               |
-| `environment_url`        | (Optional) Sets the URL for accessing your environment                                                                                                                                                                                                                                                                                                                                                        |
-| `auto_merge`             | (Optional - default is `false`) Whether to attempt to auto-merge the default branch into the branch that the action is running on if set to `"true"`. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1). Warning - setting this to `"true"` has caused this action to [fail in some cases](https://github.com/chrnorm/deployment-action/issues/1) |
+| `environment-url`        | (Optional) Sets the URL for accessing your environment                                                                                                                                                                                                                                                                                                                                                        |
+| `auto-merge`             | (Optional - default is `false`) Whether to attempt to auto-merge the default branch into the branch that the action is running on if set to `"true"`. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1). Warning - setting this to `"true"` has caused this action to [fail in some cases](https://github.com/chrnorm/deployment-action/issues/1) |
 | `ref`                    | (Optional) The ref to deploy. This can be a branch, tag, or SHA. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1).                                                                                                                                                                                                                               |
 | `sha`                    | (Optional) The SHA recorded at creation time. More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1).                                                                                                                                                                                                                                                  |
 | `task`                   | The name of the task for the deployment (e.g., `deploy` or `deploy:migrations`). More details in the [GitHub deployments API](https://developer.github.com/v3/repos/deployments/#parameters-1).                                                                                                                                                                                                               |
-| `required_contexts`      | If provided, must be formatted as a comma-separated string. The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.                                                                                                      |
+| `required-contexts`      | If provided, must be formatted as a comma-separated string. The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.                                                                                                      |
 | `payload`                | JSON payload with extra information about the deployment. Can be provided as a JSON string.                                                                                                                                                                                                                                                                                                                   |
-| `transient_environment`  | Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future.                                                                                                                                                                                                                                                                                        |
-| `production_environment` | Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise.                                                                                                                                                                                                                                                            |
+| `transient-environment`  | Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future.                                                                                                                                                                                                                                                                                        |
+| `production-environment` | Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise.                                                                                                                                                                                                                                                            |
 
 ## Action outputs
 
-| name            | description                                            |
-| --------------- | ------------------------------------------------------ |
-| `deployment_id` | The ID of the deployment as returned by the GitHub API |
+| name             | description                                            |
+| ---------------- | ------------------------------------------------------ |
+| `deployment-id`  | The ID of the deployment as returned by the GitHub API |
+| `deployment-url` | The URL of the created deployment                      |
 
 ## Example usage
 
@@ -51,8 +52,8 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
-          token: "${{ github.token }}"
-          environment_url: http://my-app-url.com
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
           environment: production
         # more steps below where you run your deployment scripts inside the same action
 ```
@@ -85,8 +86,8 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
-          token: "${{ github.token }}"
-          environment_url: http://my-app-url.com
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
           environment: production
 
       - name: Deploy my app
@@ -97,17 +98,17 @@ jobs:
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
-          environment_url: http://my-app-url.com
-          state: "success"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
 
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
-          environment_url: http://my-app-url.com
-          state: "failure"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
 ```
