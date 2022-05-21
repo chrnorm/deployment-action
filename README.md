@@ -4,7 +4,7 @@ A GitHub action to create [Deployments](https://developer.github.com/v3/repos/de
 
 ## Breaking changes
 
-`v2` of this action removes the `target_url` input and replaces it with the `environment_url` and `log_url` inputs to match GitHub's API.
+`v2` of this action removes the `target_url` input and replaces it with the `environment_url` and `log_url` inputs to match GitHub's API. `v2` also standardises on using `kebab-case` rather than `snake_case` for inputs to match GitHub's built-in actions.
 
 ## Action inputs
 
