@@ -107,7 +107,7 @@ function run() {
         }
         catch (error) {
             core.error(error);
-            core.setFailed(error.message);
+            core.setFailed(`Error creating GitHub deployment: ${error.message}`);
         }
     });
 }
