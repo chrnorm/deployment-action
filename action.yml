@@ -5,6 +5,12 @@ branding:
   icon: arrow-up
   color: gray-dark
 inputs:
+  repo:
+    description: 'A custom repository to create the deployment for. Defaults to the repo the action is running in.'
+    required: false
+  owner:
+    description: 'A custom owner to create the deployment for. Defaults to the repo owner the action is running in.'
+    required: false
   initial-status:
     description: 'Initial status for the deployment. Can be one of: error, failure, inactive, in_progress, queued, pending, success'
     default: 'pending'

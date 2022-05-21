@@ -18,6 +18,10 @@ async function run(): Promise<void> {
     const token = core.getInput('token', {required: true})
     const octokit = github.getOctokit(token)
 
+    const owner =
+      core.getInput('owner', {required: false}) || context.repo.owner
+    const repo = core.getInput('repo', {required: false}) || context.repo.repo
+
     const ref = core.getInput('ref', {required: false}) || context.ref
 
     const sha = core.getInput('sha', {required: false}) || context.sha
@@ -66,8 +70,8 @@ async function run(): Promise<void> {
     })
 
     const deployment = await octokit.rest.repos.createDeployment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
+      owner,
+      repo,
       ref,
       sha,
       task: task !== '' ? task : undefined,
