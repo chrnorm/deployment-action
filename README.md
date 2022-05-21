@@ -55,8 +55,8 @@ jobs:
 
 | name             | description                                            |
 | ---------------- | ------------------------------------------------------ |
-| `deployment-id`  | The ID of the deployment as returned by the GitHub API |
-| `deployment-url` | The URL of the created deployment                      |
+| `deployment_id`  | The ID of the deployment as returned by the GitHub API |
+| `deployment_url` | The URL of the created deployment                      |
 
 ## Notes
 
@@ -101,7 +101,7 @@ jobs:
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           state: 'success'
-          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 
       - name: Update deployment status (failure)
         if: failure()
@@ -110,7 +110,7 @@ jobs:
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           state: 'failure'
-          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 ```
 
 ## Breaking changes
