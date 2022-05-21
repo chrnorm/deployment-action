@@ -2,9 +2,31 @@
 
 A GitHub action to create [Deployments](https://developer.github.com/v3/repos/deployments/) as part of your GitHub CI workflows.
 
-## Breaking changes
+## Example usage
 
-`v2` of this action removes the `target_url` input and replaces it with the `environment_url` and `log_url` inputs to match GitHub's API. `v2` also standardises on using `kebab-case` rather than `snake_case` for inputs to match GitHub's built-in actions.
+```yaml
+name: Deploy
+
+on: [push]
+
+jobs:
+  deploy:
+    name: Deploy my app
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
+          environment: production
+        # more steps below where you run your deployment scripts inside the same action
+```
 
 ## Action inputs
 
@@ -33,34 +55,8 @@ A GitHub action to create [Deployments](https://developer.github.com/v3/repos/de
 
 | name             | description                                            |
 | ---------------- | ------------------------------------------------------ |
-| `deployment-id`  | The ID of the deployment as returned by the GitHub API |
-| `deployment-url` | The URL of the created deployment                      |
-
-## Example usage
-
-```yaml
-name: Deploy
-
-on: [push]
-
-jobs:
-  deploy:
-    name: Deploy my app
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-
-      - uses: chrnorm/deployment-action@releases/v1
-        name: Create GitHub deployment
-        id: deployment
-        with:
-          token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
-          environment: production
-        # more steps below where you run your deployment scripts inside the same action
-```
+| `deployment_id`  | The ID of the deployment as returned by the GitHub API |
+| `deployment_url` | The URL of the created deployment                      |
 
 ## Notes
 
@@ -105,7 +101,7 @@ jobs:
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           state: 'success'
-          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 
       - name: Update deployment status (failure)
         if: failure()
@@ -114,5 +110,9 @@ jobs:
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           state: 'failure'
-          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 ```
+
+## Breaking changes
+
+`v2` of this action removes the `target_url` input and replaces it with the `environment_url` and `log_url` inputs to match GitHub's API. `v2` also standardises on using `kebab-case` rather than `snake_case` for inputs to match GitHub's built-in actions.

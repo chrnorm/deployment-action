@@ -66,9 +66,9 @@ inputs:
     description: 'Changes the API base URL for a GitHub Enterprise server.'
     required: false
 outputs:
-  deployment-id:
+  deployment_id:
     description: 'The ID of the created deployment'
-  deployment-url:
+  deployment_url:
     description: 'The URL of the created deployment'
 
 runs:
