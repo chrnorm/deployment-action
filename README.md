@@ -2,6 +2,22 @@
 
 A GitHub action to create [Deployments](https://developer.github.com/v3/repos/deployments/) as part of your GitHub CI workflows.
 
+## Required Permissions
+
+\*\*Important: you must grant your GitHub Actions workflow deployment permissions as shown below. Otherwise, this Action will not work.
+
+```yaml
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+
+    # ...
+```
+
 ## Example usage
 
 ```yaml
@@ -14,6 +30,9 @@ jobs:
     name: Deploy my app
 
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
 
     steps:
       - uses: actions/checkout@v1
