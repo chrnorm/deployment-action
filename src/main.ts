@@ -25,7 +25,9 @@ async function run(): Promise<void> {
       core.getInput('owner', {required: false}) || context.repo.owner
     const repo = core.getInput('repo', {required: false}) || context.repo.repo
 
-    const ref = core.getInput('ref', {required: false}) || context.ref
+    const headRef = process.env.GITHUB_HEAD_REF
+    const ref =
+      core.getInput('ref', {required: false}) || headRef || context.ref
 
     const sha = core.getInput('sha', {required: false}) || context.sha
 
