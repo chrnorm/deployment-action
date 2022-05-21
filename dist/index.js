@@ -48,6 +48,8 @@ function run() {
             const defaultLogUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
             const token = core.getInput('token', { required: true });
             const octokit = github.getOctokit(token);
+            const owner = core.getInput('owner', { required: false }) || context.repo.owner;
+            const repo = core.getInput('repo', { required: false }) || context.repo.repo;
             const ref = core.getInput('ref', { required: false }) || context.ref;
             const sha = core.getInput('sha', { required: false }) || context.sha;
             const logUrl = core.getInput('log-url', { required: false }) || defaultLogUrl;
@@ -58,6 +60,10 @@ function run() {
             const payload = core.getInput('payload', {
                 required: false
             });
+            const autoInactiveStringInput = core.getInput('auto_inactive', {
+                required: false
+            });
+            const autoInactive = autoInactiveStringInput === 'true';
             const transientEnvironment = core.getInput('transient-environment', {
                 required: false
             });
@@ -76,8 +82,8 @@ function run() {
                 required: false
             });
             const deployment = yield octokit.rest.repos.createDeployment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner,
+                repo,
                 ref,
                 sha,
                 task: task !== '' ? task : undefined,
@@ -93,7 +99,7 @@ function run() {
                 // TODO: Should 202 be handled differently? Either way we get no ID
                 throw new Error(deployment.data.message);
             }
-            yield octokit.rest.repos.createDeploymentStatus(Object.assign(Object.assign({}, context.repo), { deployment_id: deployment.data.id, state: initialStatus, log_url: logUrl, environment_url: environmentUrl }));
+            yield octokit.rest.repos.createDeploymentStatus(Object.assign(Object.assign({}, context.repo), { deployment_id: deployment.data.id, description, state: initialStatus, log_url: logUrl, environment_url: environmentUrl, auto_inactive: autoInactive }));
             core.setOutput('deployment-id', deployment.data.id.toString());
             core.setOutput('deployment-url', deployment.data.url);
         }
