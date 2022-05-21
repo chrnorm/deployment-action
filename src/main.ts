@@ -89,6 +89,7 @@ async function run(): Promise<void> {
     })
 
     core.setOutput('deployment_id', deployment.data.id.toString())
+    core.setOutput("target_url", url);
   } catch (error: any) {
     core.error(error)
     core.setFailed(error.message)
