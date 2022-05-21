@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: chrnorm/deployment-action@releases/v1
+      - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
         with:
