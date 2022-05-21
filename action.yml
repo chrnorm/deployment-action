@@ -52,7 +52,10 @@ inputs:
   production-environment:
     description: 'Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise.'
     required: false
-
+  auto-inactive:
+    description: "Adds a new inactive status to all prior non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment. An inactive status is only added to deployments that had a success state. Default: true"
+    default: 'true'
+    required: false
 outputs:
   deployment-id:
     description: 'The ID of the created deployment'

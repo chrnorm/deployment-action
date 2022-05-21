@@ -33,6 +33,11 @@ async function run(): Promise<void> {
     const payload = core.getInput('payload', {
       required: false
     })
+    const autoInactiveStringInput = core.getInput('auto_inactive', {
+      required: false
+    })
+
+    const autoInactive: boolean = autoInactiveStringInput === 'true'
 
     const transientEnvironment = core.getInput('transient-environment', {
       required: false
@@ -85,7 +90,8 @@ async function run(): Promise<void> {
       deployment_id: deployment.data.id,
       state: initialStatus,
       log_url: logUrl,
-      environment_url: environmentUrl
+      environment_url: environmentUrl,
+      auto_inactive: autoInactive
     })
 
     core.setOutput('deployment-id', deployment.data.id.toString())
