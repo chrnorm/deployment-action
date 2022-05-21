@@ -33,7 +33,7 @@ async function run() {
 
     const auto_merge: boolean = autoMergeStringInput === "true";
 
-    const deployment = await octokit.repos.createDeployment({
+    const deployment = await octokit.rest.repos.createDeployment({
       owner: context.repo.owner,
       repo: context.repo.repo,
       ref: ref,
@@ -49,7 +49,7 @@ async function run() {
       throw new Error(deployment.data.message);
     }
 
-    await octokit.repos.createDeploymentStatus({
+    await octokit.rest.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: deployment.data.id,
       state: initialStatus,
@@ -58,7 +58,7 @@ async function run() {
     });
 
     core.setOutput("deployment_id", deployment.data.id.toString());
-  } catch (error) {
+  } catch (error: any) {
     core.error(error);
     core.setFailed(error.message);
   }
