@@ -15,8 +15,11 @@ async function run(): Promise<void> {
     const context = github.context
     const defaultLogUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`
 
+    const baseUrl =
+      core.getInput('github-base-url', {required: false}) || undefined
+
     const token = core.getInput('token', {required: true})
-    const octokit = github.getOctokit(token)
+    const octokit = github.getOctokit(token, {baseUrl})
 
     const owner =
       core.getInput('owner', {required: false}) || context.repo.owner

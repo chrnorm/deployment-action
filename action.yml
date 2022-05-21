@@ -62,6 +62,9 @@ inputs:
     description: "Adds a new inactive status to all prior non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment. An inactive status is only added to deployments that had a success state. Default: true"
     default: 'true'
     required: false
+  github-base-url:
+    description: 'Changes the API base URL for a GitHub Enterprise server.'
+    required: false
 outputs:
   deployment-id:
     description: 'The ID of the created deployment'
