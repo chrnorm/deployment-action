@@ -22,9 +22,9 @@ async function run(): Promise<void> {
 
     const sha = core.getInput('sha', {required: false}) || context.sha
 
-    const logUrl = core.getInput('log_url', {required: false}) || defaultLogUrl
+    const logUrl = core.getInput('log-url', {required: false}) || defaultLogUrl
 
-    const environmentUrl = core.getInput('environment_url', {required: false})
+    const environmentUrl = core.getInput('environment-url', {required: false})
 
     const task = core.getInput('task', {
       required: false
@@ -34,11 +34,11 @@ async function run(): Promise<void> {
       required: false
     })
 
-    const transientEnvironment = core.getInput('transient_environment', {
+    const transientEnvironment = core.getInput('transient-environment', {
       required: false
     })
 
-    const productionEnvironment = core.getInput('production_environment', {
+    const productionEnvironment = core.getInput('production-environment', {
       required: false
     })
 
@@ -48,15 +48,15 @@ async function run(): Promise<void> {
     const description = core.getInput('description', {required: false})
 
     const initialStatus =
-      (core.getInput('initial_status', {
+      (core.getInput('initial-status', {
         required: false
       }) as DeploymentState) || 'pending'
 
-    const autoMerge = core.getInput('auto_merge', {
+    const autoMerge = core.getInput('auto-merge', {
       required: false
     })
 
-    const requiredContexts = core.getInput('required_contexts', {
+    const requiredContexts = core.getInput('required-contexts', {
       required: false
     })
 
@@ -88,8 +88,8 @@ async function run(): Promise<void> {
       environment_url: environmentUrl
     })
 
-    core.setOutput('deployment_id', deployment.data.id.toString())
-    core.setOutput("target_url", url);
+    core.setOutput('deployment-id', deployment.data.id.toString())
+    core.setOutput('deployment-url', deployment.data.url)
   } catch (error: any) {
     core.error(error)
     core.setFailed(error.message)
