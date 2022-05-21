@@ -50,29 +50,29 @@ function run() {
             const octokit = github.getOctokit(token);
             const ref = core.getInput('ref', { required: false }) || context.ref;
             const sha = core.getInput('sha', { required: false }) || context.sha;
-            const logUrl = core.getInput('log_url', { required: false }) || defaultLogUrl;
-            const environmentUrl = core.getInput('environment_url', { required: false });
+            const logUrl = core.getInput('log-url', { required: false }) || defaultLogUrl;
+            const environmentUrl = core.getInput('environment-url', { required: false });
             const task = core.getInput('task', {
                 required: false
             });
             const payload = core.getInput('payload', {
                 required: false
             });
-            const transientEnvironment = core.getInput('transient_environment', {
+            const transientEnvironment = core.getInput('transient-environment', {
                 required: false
             });
-            const productionEnvironment = core.getInput('production_environment', {
+            const productionEnvironment = core.getInput('production-environment', {
                 required: false
             });
             const environment = core.getInput('environment', { required: false }) || 'production';
             const description = core.getInput('description', { required: false });
-            const initialStatus = core.getInput('initial_status', {
+            const initialStatus = core.getInput('initial-status', {
                 required: false
             }) || 'pending';
-            const autoMerge = core.getInput('auto_merge', {
+            const autoMerge = core.getInput('auto-merge', {
                 required: false
             });
-            const requiredContexts = core.getInput('required_contexts', {
+            const requiredContexts = core.getInput('required-contexts', {
                 required: false
             });
             const deployment = yield octokit.rest.repos.createDeployment({
@@ -94,7 +94,8 @@ function run() {
                 throw new Error(deployment.data.message);
             }
             yield octokit.rest.repos.createDeploymentStatus(Object.assign(Object.assign({}, context.repo), { deployment_id: deployment.data.id, state: initialStatus, log_url: logUrl, environment_url: environmentUrl }));
-            core.setOutput('deployment_id', deployment.data.id.toString());
+            core.setOutput('deployment-id', deployment.data.id.toString());
+            core.setOutput('deployment-url', deployment.data.url);
         }
         catch (error) {
             core.error(error);
