@@ -1,66 +1,65 @@
-import * as core from "@actions/core";
-import * as github from "@actions/github";
+import * as core from '@actions/core'
+import * as github from '@actions/github'
 
 type DeploymentState =
-  | "error"
-  | "failure"
-  | "inactive"
-  | "in_progress"
-  | "queued"
-  | "pending"
-  | "success";
+  | 'error'
+  | 'failure'
+  | 'inactive'
+  | 'in_progress'
+  | 'queued'
+  | 'pending'
+  | 'success'
 
-async function run() {
+async function run(): Promise<void> {
   try {
-    const context = github.context;
-    const defaultLogUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
+    const context = github.context
+    const defaultLogUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`
 
-    const token = core.getInput("token", { required: true });
-    const octokit = github.getOctokit(token);
+    const token = core.getInput('token', {required: true})
+    const octokit = github.getOctokit(token)
 
-    const ref = core.getInput("ref", { required: false }) || context.ref;
+    const ref = core.getInput('ref', {required: false}) || context.ref
 
-    const sha = core.getInput("sha", { required: false }) || context.sha;
+    const sha = core.getInput('sha', {required: false}) || context.sha
 
-    const logUrl =
-      core.getInput("log_url", { required: false }) || defaultLogUrl;
+    const logUrl = core.getInput('log_url', {required: false}) || defaultLogUrl
 
     const environmentUrl =
-      core.getInput("environment_url", { required: false }) || "";
+      core.getInput('environment_url', {required: false}) || ''
 
-    const task = core.getInput("task", {
-      required: false,
-    });
+    const task = core.getInput('task', {
+      required: false
+    })
 
-    const payload = core.getInput("payload", {
-      required: false,
-    });
+    const payload = core.getInput('payload', {
+      required: false
+    })
 
-    const transientEnvironment = core.getInput("transient_environment", {
-      required: false,
-    });
+    const transientEnvironment = core.getInput('transient_environment', {
+      required: false
+    })
 
-    const productionEnvironment = core.getInput("production_environment", {
-      required: false,
-    });
+    const productionEnvironment = core.getInput('production_environment', {
+      required: false
+    })
 
     const environment =
-      core.getInput("environment", { required: false }) || "production";
+      core.getInput('environment', {required: false}) || 'production'
 
-    const description = core.getInput("description", { required: false });
+    const description = core.getInput('description', {required: false})
 
     const initialStatus =
-      (core.getInput("initial_status", {
-        required: false,
-      }) as DeploymentState) || "pending";
+      (core.getInput('initial_status', {
+        required: false
+      }) as DeploymentState) || 'pending'
 
-    const autoMerge = core.getInput("auto_merge", {
-      required: false,
-    });
+    const autoMerge = core.getInput('auto_merge', {
+      required: false
+    })
 
-    const requiredContexts = core.getInput("required_contexts", {
-      required: false,
-    });
+    const requiredContexts = core.getInput('required_contexts', {
+      required: false
+    })
 
     const deployment = await octokit.rest.repos.createDeployment({
       owner: context.repo.owner,
@@ -68,18 +67,18 @@ async function run() {
       ref,
       sha,
       task,
-      required_contexts: requiredContexts ? requiredContexts.split(",") : [],
+      required_contexts: requiredContexts ? requiredContexts.split(',') : [],
       environment,
-      transient_environment: transientEnvironment === "true",
-      production_environment: productionEnvironment === "true",
-      auto_merge: autoMerge === "true",
+      transient_environment: transientEnvironment === 'true',
+      production_environment: productionEnvironment === 'true',
+      auto_merge: autoMerge === 'true',
       payload: payload ? tryParseJSON(payload) : undefined,
-      description,
-    });
+      description
+    })
 
-    if (!("id" in deployment.data)) {
+    if (!('id' in deployment.data)) {
       // TODO: Should 202 be handled differently? Either way we get no ID
-      throw new Error(deployment.data.message);
+      throw new Error(deployment.data.message)
     }
 
     await octokit.rest.repos.createDeploymentStatus({
@@ -87,13 +86,13 @@ async function run() {
       deployment_id: deployment.data.id,
       state: initialStatus,
       log_url: logUrl,
-      environment_url: environmentUrl,
-    });
+      environment_url: environmentUrl
+    })
 
-    core.setOutput("deployment_id", deployment.data.id.toString());
+    core.setOutput('deployment_id', deployment.data.id.toString())
   } catch (error: any) {
-    core.error(error);
-    core.setFailed(error.message);
+    core.error(error)
+    core.setFailed(error.message)
   }
 }
 
@@ -102,11 +101,13 @@ async function run() {
  * If it cannot be parsed the input string is returned.
  */
 function tryParseJSON(str: string): any {
-  let res: any = str;
+  let res: any = str
   try {
-    res = JSON.parse(str);
-  } catch (_) {}
-  return res;
+    res = JSON.parse(str)
+  } catch (e) {
+    core.info(`couldn't parse string as JSON: ${str}`)
+  }
+  return res
 }
 
-run();
+run()
