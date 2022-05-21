@@ -1,10 +1,10 @@
-name: "build-test"
+name: 'build-test'
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - main
-      - "releases/*"
+      - 'releases/*'
 
 jobs:
   build: # make sure build/ci work properly
@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          token: '${{ github.token }}'
