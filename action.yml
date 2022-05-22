@@ -70,7 +70,8 @@ outputs:
     description: 'The ID of the created deployment'
   deployment_url:
     description: 'The URL of the created deployment'
-
+  environment_url:
+    description: 'The environment URL of the deployment'
 runs:
   using: 'node16'
   main: 'dist/index.js'
