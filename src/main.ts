@@ -52,9 +52,14 @@ async function run(): Promise<void> {
       required: false
     })
 
-    const productionEnvironment = core.getInput('production-environment', {
-      required: false
-    })
+    const productionEnvironmentStringInput =
+      core.getInput('production-environment', {
+        required: false
+      }) || undefined
+
+    const productionEnvironment = productionEnvironmentStringInput
+      ? productionEnvironmentStringInput === 'true'
+      : undefined
 
     const environment =
       core.getInput('environment', {required: false}) || 'production'
@@ -83,7 +88,7 @@ async function run(): Promise<void> {
       required_contexts: requiredContexts ? requiredContexts.split(',') : [],
       environment,
       transient_environment: transientEnvironment === 'true',
-      production_environment: productionEnvironment === 'true',
+      production_environment: productionEnvironment,
       auto_merge: autoMerge === 'true',
       payload: payload ? tryParseJSON(payload) : undefined,
       description

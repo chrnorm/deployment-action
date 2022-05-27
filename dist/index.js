@@ -69,9 +69,12 @@ function run() {
             const transientEnvironment = core.getInput('transient-environment', {
                 required: false
             });
-            const productionEnvironment = core.getInput('production-environment', {
+            const productionEnvironmentStringInput = core.getInput('production-environment', {
                 required: false
-            });
+            }) || undefined;
+            const productionEnvironment = productionEnvironmentStringInput
+                ? productionEnvironmentStringInput === 'true'
+                : undefined;
             const environment = core.getInput('environment', { required: false }) || 'production';
             const description = core.getInput('description', { required: false });
             const initialStatus = core.getInput('initial-status', {
@@ -92,7 +95,7 @@ function run() {
                 required_contexts: requiredContexts ? requiredContexts.split(',') : [],
                 environment,
                 transient_environment: transientEnvironment === 'true',
-                production_environment: productionEnvironment === 'true',
+                production_environment: productionEnvironment,
                 auto_merge: autoMerge === 'true',
                 payload: payload ? tryParseJSON(payload) : undefined,
                 description
