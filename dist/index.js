@@ -62,7 +62,7 @@ function run() {
             const payload = core.getInput('payload', {
                 required: false
             });
-            const autoInactiveStringInput = core.getInput('auto_inactive', {
+            const autoInactiveStringInput = core.getInput('auto-inactive', {
                 required: false
             });
             const autoInactive = autoInactiveStringInput === 'true';

@@ -42,7 +42,7 @@ async function run(): Promise<void> {
     const payload = core.getInput('payload', {
       required: false
     })
-    const autoInactiveStringInput = core.getInput('auto_inactive', {
+    const autoInactiveStringInput = core.getInput('auto-inactive', {
       required: false
     })
 
