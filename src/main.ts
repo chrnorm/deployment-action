@@ -13,7 +13,12 @@ type DeploymentState =
 async function run(): Promise<void> {
   try {
     const context = github.context
-    const defaultLogUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`
+    const defaultLogUrl =
+      github.context.eventName === 'pull_request'
+        ? `https://github.com/${context.repo.owner}/${context.repo.repo}/pull/${github.context.issue.number}/checks`
+        : `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`
+
+    core.info(`DefaultLogUrL: ${defaultLogUrl}`)
 
     const baseUrl =
       core.getInput('github-base-url', {required: false}) || undefined
