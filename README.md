@@ -136,3 +136,19 @@ jobs:
 ## Breaking changes
 
 `v2` of this action removes the `target_url` input and replaces it with the `environment_url` and `log_url` inputs to match GitHub's API. `v2` also standardises on using `kebab-case` rather than `snake_case` for inputs to match GitHub's built-in actions.
+
+## Releasing
+
+1. Merge the main branch into `releases/v2`
+
+2. Tag the release
+
+   ```bash
+   git tag v2.0.6
+   git tag v2 -f # force update the existing v2 major release tag
+   ```
+
+3. Push the tags
+   ```
+   git push -f --tags
+   ```
