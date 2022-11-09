@@ -25,7 +25,7 @@
   "author": "Chris Norman",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.8.2",
+    "@actions/core": "^1.10.0",
     "@actions/github": "^5.0.3"
   },
   "devDependencies": {
