@@ -35,7 +35,7 @@ jobs:
       deployments: write
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
@@ -143,12 +143,12 @@ jobs:
 
 2. Tag the release
 
-   ```bash
+   ```sh
    git tag v2.0.6
    git tag v2 -f # force update the existing v2 major release tag
    ```
 
 3. Push the tags
-   ```
+   ```sh
    git push -f --tags
    ```
