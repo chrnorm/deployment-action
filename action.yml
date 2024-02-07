@@ -73,5 +73,5 @@ outputs:
   environment_url:
     description: 'The environment URL of the deployment'
 runs:
-  using: 'node16'
+  using: node20
   main: 'dist/index.js'
