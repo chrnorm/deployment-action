@@ -114,23 +114,14 @@ jobs:
         run: |
           # add your deployment code here
 
-      - name: Update deployment status (success)
-        if: success()
+      - name: Update deployment status
+        if: always()
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
           environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: 'success'
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: 'failure'
+          state: ${{ job.status }}
 ```
 
 ## Breaking changes
